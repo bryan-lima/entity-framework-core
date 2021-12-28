@@ -13,7 +13,7 @@ namespace EntityFrameworkCore.Domain
         public DateTime IniciadoEm { get; set; }
         public DateTime FinalizadoEm { get; set; }
         public TipoFreteEnum TipoFrete { get; set; }
-        public StatusPedidoEnum StatusPedido { get; set; }
+        public StatusPedidoEnum Status { get; set; }
         public string Observacao { get; set; }
         public ICollection<PedidoItem> Itens { get; set; }
     }
