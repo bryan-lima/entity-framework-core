@@ -18,10 +18,7 @@ namespace EntityFrameworkCore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ClienteConfiguration());
-            modelBuilder.ApplyConfiguration(new PedidoConfiguration());
-            modelBuilder.ApplyConfiguration(new PedidoItemConfiguration());
-            modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
         }
     }
 }
