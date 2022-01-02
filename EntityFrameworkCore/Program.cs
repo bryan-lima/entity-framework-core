@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace EntityFrameworkCore
 {
@@ -20,6 +21,18 @@ namespace EntityFrameworkCore
              */
 
             #endregion Aplica as migrations na base de dados no momento em que executar a aplicação
+
+            #region Verifica se existe migrations pendentes
+
+            using var db = new Data.ApplicationContext();
+            var existeMigrationsPendentes = db.Database.GetPendingMigrations().Any();
+
+            if (existeMigrationsPendentes)
+            {
+                // Realiza alguma ação, como encerrar a aplicação para não ocorrer problemas
+            }
+
+            #endregion Verifica se existe migrations pendentes
 
             Console.WriteLine("Hello World!");
         }
