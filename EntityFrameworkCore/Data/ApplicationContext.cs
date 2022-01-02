@@ -10,6 +10,8 @@ namespace EntityFrameworkCore.Data
     public class ApplicationContext : DbContext
     {
         public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

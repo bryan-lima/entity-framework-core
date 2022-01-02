@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EntityFrameworkCore.Data;
+using EntityFrameworkCore.Domain;
+using EntityFrameworkCore.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -34,7 +37,30 @@ namespace EntityFrameworkCore
 
             #endregion Verifica se existe migrations pendentes
 
-            Console.WriteLine("Hello World!");
+            InserirDados();
+        }
+
+        private static void InserirDados()
+        {
+            var produto = new Produto
+            {
+                Descricao = "Produto Teste",
+                CodigoBarras = "1234567891231",
+                Valor = 10m,
+                TipoProduto = TipoProdutoEnum.MercadoriaParaRevenda,
+                Ativo = true
+            };
+
+            using var db = new ApplicationContext();
+
+            // Comandos de inserção de dados
+            db.Produtos.Add(produto);
+            db.Set<Produto>().Add(produto);
+            db.Entry(produto).State = EntityState.Added;
+            db.Add(produto);
+
+            var registros = db.SaveChanges();
+            Console.WriteLine($"Total registro(s): {registros}");
         }
     }
 }
