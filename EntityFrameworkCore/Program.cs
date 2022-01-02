@@ -37,7 +37,8 @@ namespace EntityFrameworkCore
 
             #endregion Verifica se existe migrations pendentes
 
-            InserirDados();
+            //InserirDados();
+            InserirDadosEmMassa();
         }
 
         private static void InserirDados()
@@ -58,6 +59,34 @@ namespace EntityFrameworkCore
             db.Set<Produto>().Add(produto);
             db.Entry(produto).State = EntityState.Added;
             db.Add(produto);
+
+            var registros = db.SaveChanges();
+            Console.WriteLine($"Total registro(s): {registros}");
+        }
+
+        private static void InserirDadosEmMassa()
+        {
+            var produto = new Produto
+            {
+                Descricao = "Produto Teste",
+                CodigoBarras = "1234567891231",
+                Valor = 10m,
+                TipoProduto = TipoProdutoEnum.MercadoriaParaRevenda,
+                Ativo = true
+            };
+
+            var cliente = new Cliente
+            {
+                Nome = "Bryan Lima",
+                CEP = "99999000",
+                Cidade = "São Paulo",
+                Estado = "SP",
+                Telefone = "99000001111"
+            };
+
+            using var db = new ApplicationContext();
+
+            db.AddRange(produto, cliente);
 
             var registros = db.SaveChanges();
             Console.WriteLine($"Total registro(s): {registros}");
