@@ -41,7 +41,8 @@ namespace EntityFrameworkCore
             //InserirDados();
             //InserirDadosEmMassa();
             //ConsultarDados();
-            CadastrarPedido();
+            //CadastrarPedido();
+            ConsultarPedidoCarregamentoAdiantado();
         }
 
         private static void InserirDados()
@@ -162,6 +163,15 @@ namespace EntityFrameworkCore
             db.Pedidos.Add(pedido);
 
             db.SaveChanges();
+        }
+
+        private static void ConsultarPedidoCarregamentoAdiantado()
+        {
+            using var db = new ApplicationContext();
+
+            var pedidos = db.Pedidos.Include(i => i.Itens).ThenInclude(i => i.Produto).ToList();
+
+            Console.WriteLine(pedidos.Count);
         }
     }
 }
