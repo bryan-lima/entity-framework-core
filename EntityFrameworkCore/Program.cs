@@ -119,12 +119,14 @@ namespace EntityFrameworkCore
         {
             using var db = new ApplicationContext();
             //var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
-            var consultaPorMetodo = db.Clientes.AsNoTracking().Where(c => c.Id > 0).ToList();
+            //var consultaPorMetodo = db.Clientes.AsNoTracking().Where(c => c.Id > 0).ToList();
+            var consultaPorMetodo = db.Clientes.Where(c => c.Id > 0).ToList();
 
             foreach (var cliente in consultaPorMetodo)
             {
                 Console.WriteLine($"Consultando cliente: {cliente.Id}");
-                db.Clientes.Find(cliente.Id);
+                //db.Clientes.Find(cliente.Id);
+                db.Clientes.FirstOrDefault(c => c.Id == cliente.Id);
             }
         }
     }
