@@ -43,7 +43,8 @@ namespace EntityFrameworkCore
             //ConsultarDados();
             //CadastrarPedido();
             //ConsultarPedidoCarregamentoAdiantado();
-            AtualizarDados();
+            //AtualizarDados();
+            RemoverRegistro();
         }
 
         private static void InserirDados()
@@ -197,6 +198,17 @@ namespace EntityFrameworkCore
             //db.Entry(cliente).State = EntityState.Modified;
             db.Attach(cliente);
             db.Entry(cliente).CurrentValues.SetValues(clienteDesconectado);
+            db.SaveChanges();
+        }
+
+        private static void RemoverRegistro()
+        {
+            using var db = new ApplicationContext();
+
+            var cliente = db.Clientes.Find(3);
+
+            db.Clientes.Remove(cliente);
+
             db.SaveChanges();
         }
     }
