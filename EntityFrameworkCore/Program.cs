@@ -84,9 +84,31 @@ namespace EntityFrameworkCore
                 Telefone = "99000001111"
             };
 
+            var listaClientes = new[]
+{
+                new Cliente
+                {
+                    Nome = "Teste 1",
+                    CEP = "99999000",
+                    Cidade = "São Paulo",
+                    Estado = "SP",
+                    Telefone = "99000001115"
+                },
+                new Cliente
+                {
+                    Nome = "Teste 2",
+                    CEP = "99999000",
+                    Cidade = "São Paulo",
+                    Estado = "SP",
+                    Telefone = "99000001116"
+                }
+            };
+
             using var db = new ApplicationContext();
 
-            db.AddRange(produto, cliente);
+            //db.AddRange(produto, cliente);
+            db.Clientes.AddRange(listaClientes);
+            db.Set<Cliente>().AddRange(listaClientes);
 
             var registros = db.SaveChanges();
             Console.WriteLine($"Total registro(s): {registros}");
