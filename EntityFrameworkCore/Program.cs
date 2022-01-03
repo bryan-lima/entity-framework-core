@@ -120,7 +120,7 @@ namespace EntityFrameworkCore
             using var db = new ApplicationContext();
             //var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
             //var consultaPorMetodo = db.Clientes.AsNoTracking().Where(c => c.Id > 0).ToList();
-            var consultaPorMetodo = db.Clientes.Where(c => c.Id > 0).ToList();
+            var consultaPorMetodo = db.Clientes.Where(c => c.Id > 0).OrderBy(c => c.Id).ToList();
 
             foreach (var cliente in consultaPorMetodo)
             {
