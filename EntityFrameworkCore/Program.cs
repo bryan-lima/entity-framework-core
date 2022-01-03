@@ -205,7 +205,11 @@ namespace EntityFrameworkCore
         {
             using var db = new ApplicationContext();
 
-            var cliente = db.Clientes.Find(5);
+            //var cliente = db.Clientes.Find(5);
+            var cliente = new Cliente
+            {
+                Id = 6
+            };
 
             //db.Clientes.Remove(cliente);
             //db.Remove(cliente);
