@@ -181,9 +181,9 @@ namespace EntityFrameworkCore
 
             var cliente = db.Clientes.Find(3);
 
-            cliente.Nome = "Cliente Alterado - Passo 1";
+            cliente.Nome = "Cliente Alterado - Passo 2";
 
-            db.Clientes.Update(cliente);
+            //db.Clientes.Update(cliente);
             db.SaveChanges();
         }
     }
