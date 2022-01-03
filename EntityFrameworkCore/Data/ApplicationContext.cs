@@ -22,7 +22,7 @@ namespace EntityFrameworkCore.Data
             optionsBuilder.UseLoggerFactory(_logger)
                           .EnableSensitiveDataLogging()
                           .UseSqlServer("Data Source=DESKTOP-B76722G\\SQLEXPRESS; Initial Catalog=EFCore; User ID=developer; Password=dev*10; Integrated Security=True; Persist Security Info=False; Pooling=False; MultipleActiveResultSets=False; Encrypt=False; Trusted_Connection=False", 
-                                        opt => opt.EnableRetryOnFailure());
+                                        opt => opt.EnableRetryOnFailure(maxRetryCount: 2, maxRetryDelay: TimeSpan.FromSeconds(5), errorNumbersToAdd: null));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
