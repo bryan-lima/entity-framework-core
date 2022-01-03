@@ -180,11 +180,17 @@ namespace EntityFrameworkCore
             using var db = new ApplicationContext();
 
             var cliente = db.Clientes.Find(3);
+            //cliente.Nome = "Cliente Alterado - Passo 2";
 
-            cliente.Nome = "Cliente Alterado - Passo 2";
+            var clienteDesconectado = new
+            {
+                Nome = "Cliente Desconectado",
+                Telefone = "1199998888"
+            };
 
             //db.Clientes.Update(cliente);
-            db.Entry(cliente).State = EntityState.Modified;
+            //db.Entry(cliente).State = EntityState.Modified;
+            db.Entry(cliente).CurrentValues.SetValues(clienteDesconectado);
             db.SaveChanges();
         }
     }
