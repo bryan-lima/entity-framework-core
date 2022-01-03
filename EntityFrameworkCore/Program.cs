@@ -205,10 +205,11 @@ namespace EntityFrameworkCore
         {
             using var db = new ApplicationContext();
 
-            var cliente = db.Clientes.Find(4);
+            var cliente = db.Clientes.Find(5);
 
             //db.Clientes.Remove(cliente);
-            db.Remove(cliente);
+            //db.Remove(cliente);
+            db.Entry(cliente).State = EntityState.Deleted;
 
             db.SaveChanges();
         }
