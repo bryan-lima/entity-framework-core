@@ -38,7 +38,8 @@ namespace EntityFrameworkCore
             #endregion Verifica se existe migrations pendentes
 
             //InserirDados();
-            InserirDadosEmMassa();
+            //InserirDadosEmMassa();
+            ConsultarDados();
         }
 
         private static void InserirDados()
@@ -112,6 +113,13 @@ namespace EntityFrameworkCore
 
             var registros = db.SaveChanges();
             Console.WriteLine($"Total registro(s): {registros}");
+        }
+
+        private static void ConsultarDados()
+        {
+            using var db = new ApplicationContext();
+            var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
+            var consultaPorMetodo = db.Clientes.Where(c => c.Id > 0).ToList();
         }
     }
 }
