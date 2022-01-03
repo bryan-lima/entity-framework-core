@@ -184,6 +184,7 @@ namespace EntityFrameworkCore
             cliente.Nome = "Cliente Alterado - Passo 2";
 
             //db.Clientes.Update(cliente);
+            db.Entry(cliente).State = EntityState.Modified;
             db.SaveChanges();
         }
     }
