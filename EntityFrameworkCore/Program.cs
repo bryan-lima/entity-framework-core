@@ -3,6 +3,7 @@ using EntityFrameworkCore.Domain;
 using EntityFrameworkCore.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EntityFrameworkCore
@@ -39,7 +40,8 @@ namespace EntityFrameworkCore
 
             //InserirDados();
             //InserirDadosEmMassa();
-            ConsultarDados();
+            //ConsultarDados();
+            CadastrarPedido();
         }
 
         private static void InserirDados()
@@ -128,6 +130,38 @@ namespace EntityFrameworkCore
                 //db.Clientes.Find(cliente.Id);
                 db.Clientes.FirstOrDefault(c => c.Id == cliente.Id);
             }
+        }
+
+        private static void CadastrarPedido()
+        {
+            using var db = new ApplicationContext();
+
+            var cliente = db.Clientes.FirstOrDefault();
+            var produto = db.Produtos.FirstOrDefault();
+
+            var pedido = new Pedido
+            {
+                ClienteId = cliente.Id,
+                IniciadoEm = DateTime.Now,
+                FinalizadoEm = DateTime.Now,
+                Observacao = "Pedido Teste",
+                Status = StatusPedidoEnum.Analise,
+                TipoFrete = TipoFreteEnum.SemFrete,
+                Itens = new List<PedidoItem>
+                {
+                    new PedidoItem
+                    {
+                        ProdutoId = produto.Id,
+                        Desconto = 0,
+                        Quantidade = 1,
+                        Valor = 10
+                    }
+                },
+            };
+
+            db.Pedidos.Add(pedido);
+
+            db.SaveChanges();
         }
     }
 }
